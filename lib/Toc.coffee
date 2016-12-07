@@ -5,6 +5,7 @@ class Toc
   constructor: (@editor) ->
     @lines = []
     @list = []
+    @headerPrefix = atom.config.get 'markdown-toc.headerPrefix'
     @options =
       depthFrom: 1  # depthFrom
       depthTo: 6  # depthTo
@@ -210,7 +211,7 @@ class Toc
     link = []
     link.push "["
     link.push name
-    link.push "](#"
+    link.push "](##{@headerPrefix}"
     link.push hash
     link.push ")"
     return link.join ""

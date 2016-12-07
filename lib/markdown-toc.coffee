@@ -1,6 +1,11 @@
 Toc = require './Toc'
 
 module.exports =
+  config:
+    headerPrefix:
+      default: ''
+      title: 'Markdown header prefix (for BitBucket markdown set this to: \'markdown-header-\')'
+      type: 'string'
 
   activate: (state) ->
     atom.commands.add 'atom-workspace', 'markdown-toc:create': =>
