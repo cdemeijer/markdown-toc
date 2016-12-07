@@ -71,11 +71,11 @@ class Toc
       for i of @lines
         line = @lines[i]
         if @open is false
-          if line.match /^<!--(.*)TOC(.*)-->$/g
+          if line.match /^\[\/\/\]: # \(TOC(.*)\)$/g
             @open = parseInt i
             options = line
         else
-          if line.match /^<!--(.*)\/TOC(.*)-->$/g
+          if line.match /^\[\/\/\]: # \(\/TOC(.*)\)$/g
             @close = parseInt i
             break
 
@@ -87,16 +87,16 @@ class Toc
 
 
   # embed list with the open and close comment:
-  # <!-- TOC --> [list] <!-- /TOC -->
+  # [//]: # TOC) [list] [//]: # /TOC)
   _createToc: () ->
     @__updateList()
     if Object.keys(@list).length > 0
       text = []
-      text.push "<!-- TOC depthFrom:"+@options.depthFrom+" depthTo:"+@options.depthTo+" withLinks:"+@options.withLinks+" updateOnSave:"+@options.updateOnSave+" orderedList:"+@options.orderedList+" -->\n"
+      text.push "[//]: # (TOC depthFrom:"+@options.depthFrom+" depthTo:"+@options.depthTo+" withLinks:"+@options.withLinks+" updateOnSave:"+@options.updateOnSave+" orderedList:"+@options.orderedList+")\n"
       list = @__createList()
       if list isnt false
         Array.prototype.push.apply text, list
-      text.push "\n<!-- /TOC -->"
+      text.push "\n[//]: # (/TOC)"
       return text.join "\n"
     return ""
 
